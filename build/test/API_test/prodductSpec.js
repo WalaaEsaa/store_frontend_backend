@@ -14,5 +14,11 @@ describe("product Model", function () {
         it('should have a create method', function () {
             expect(pStore.create).toBeDefined();
         });
+        it('should have a delete user method', function () {
+            expect(pStore.delete).toBeDefined();
+        });
+        it('should have a update method', function () {
+            expect(pStore.updateProduct).toBeDefined();
+        });
     });
 });

@@ -58,7 +58,7 @@ export class Orders_store {
     try {
       const sql = `UPDATE orders  SET 
        product_quantity=($1), order_status=($2), product_id=($3), user_id=($4)
-        WHERE id=($5)    RETURNING *`
+        WHERE id=($5) RETURNING *`
 
       const conn = await Client.connect()
       const result = await conn.query(sql, [id,quantity,statues,product_id,user_id])

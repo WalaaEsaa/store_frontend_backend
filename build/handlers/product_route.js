@@ -97,6 +97,9 @@ var deleteProuduct = function (req, res) { return __awaiter(void 0, void 0, void
             case 0: return [4 /*yield*/, pStore.delete(parseInt(req.params.id))];
             case 1:
                 aproduct = _a.sent();
+                if (!aproduct) {
+                    res.json('this id not found');
+                }
                 res.json(aproduct);
                 return [2 /*return*/];
         }

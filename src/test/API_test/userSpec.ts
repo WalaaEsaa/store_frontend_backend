@@ -16,6 +16,15 @@ describe("user Model", () => {
   it('should have a create method', () => {
     expect(uStore.create).toBeDefined();
   });
+  it('should have a delete user method', () => {
+    expect(uStore.destory).toBeDefined();
+  });
+  it('should have a log in method', () => {
+    expect(uStore.authenticate).toBeDefined();
+  });
+  it('should have a update method', () => {
+    expect(uStore.update).toBeDefined();
+  });
 })
 
 

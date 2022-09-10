@@ -14,5 +14,14 @@ describe("user Model", function () {
         it('should have a create method', function () {
             expect(uStore.create).toBeDefined();
         });
+        it('should have a delete user method', function () {
+            expect(uStore.destory).toBeDefined();
+        });
+        it('should have a log in method', function () {
+            expect(uStore.authenticate).toBeDefined();
+        });
+        it('should have a update method', function () {
+            expect(uStore.update).toBeDefined();
+        });
     });
 });

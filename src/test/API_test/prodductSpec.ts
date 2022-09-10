@@ -16,6 +16,13 @@ describe("product Model", () => {
   it('should have a create method', () => {
     expect(pStore.create).toBeDefined();
   });
+  it('should have a delete user method', () => {
+    expect(pStore.delete).toBeDefined();
+  });
+  it('should have a update method', () => {
+    expect(pStore.updateProduct).toBeDefined();
+  });
+  
 })
   
 });

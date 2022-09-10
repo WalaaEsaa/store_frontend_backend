@@ -133,7 +133,7 @@ var product_store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "DELETE FROM products WHERE id=$1 RETURING *";
+                        sql = "DELETE FROM products WHERE id=($1) RETURNING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -158,7 +158,7 @@ var product_store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "UPDATE products SET \n            product_name=($1),\n            price=($2),\n            category=($3), \n            WHERE id=($4) \n            RETURNING *";
+                        sql = "UPDATE products SET \n            id=($1),\n            product_name=($2),\n            price=($3),\n            category=($4) \n            WHERE id=($1) \n            RETURNING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();

@@ -51,8 +51,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var order_rest_1 = require("../modules/order_rest");
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var dotenv_1 = __importDefault(require("dotenv"));
+var authZuser_1 = __importDefault(require("../authmiddelware/authZuser"));
 dotenv_1.default.config();
 var secretToken = process.env.SECRET_TOKEN;
 var oStore = new order_rest_1.Orders_store;
@@ -83,25 +83,22 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
     });
 }); };
 var showOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user_id, orders, token, err_2;
+    var user_id, orders, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                user_id = parseInt(req.body.user_id);
-                console.log(user_id);
+                user_id = parseInt(req.params.user_id);
                 return [4 /*yield*/, oStore.showCurrentOrders(user_id)];
             case 1:
                 orders = _a.sent();
                 if (!orders) {
                     res.json('error in modules');
                 }
-                console.log(orders);
-                token = jsonwebtoken_1.default.sign({ order: orders }, secretToken);
                 if (orders) {
                     res.json({
                         status: 'success',
-                        data: __assign(__assign({}, orders), { token: token }),
+                        data: __assign({}, orders),
                         message: 'user ordered'
                     });
                 }
@@ -121,8 +118,77 @@ var showOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
+var getALL = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var orderAll;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, oStore.getALL()];
+            case 1:
+                orderAll = _a.sent();
+                res.json(orderAll);
+                return [2 /*return*/];
+        }
+    });
+}); };
+var deleteOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, auser, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                id = parseInt(req.params.id);
+                return [4 /*yield*/, oStore.deleteOrder(id)
+                    // if (!auser) {res.json('user id not found ')}
+                ];
+            case 1:
+                auser = _a.sent();
+                // if (!auser) {res.json('user id not found ')}
+                res.json("auser deleted");
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                res.json(err_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var updateOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, quantity, statues, product_id, user_id, orderupdate, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                id = parseInt(req.params.id);
+                quantity = parseInt(req.body.product_quantity);
+                statues = req.body.order_status;
+                product_id = parseInt(req.body.product_id);
+                user_id = parseInt(req.body.user_id);
+                return [4 /*yield*/, oStore.updateOrders(id, quantity, statues, product_id, user_id)];
+            case 1:
+                orderupdate = _a.sent();
+                console.log(orderupdate);
+                if (!orderupdate)
+                    res.json('errrrrr');
+                res.json({
+                    states: 'succes',
+                    data: orderupdate,
+                    message: "auser updated"
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                err_4 = _a.sent();
+                res.json(err_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 var orderRout = function (app) {
-    app.get('/orders', showOrders);
+    app.get('/orders/', getALL);
+    app.get('/orders/:user_id', authZuser_1.default, showOrders);
     app.post('/orders', create);
+    app.delete('/orders/:id', deleteOrder);
+    app.put('/orders/:id', updateOrders);
 };
 exports.default = orderRout;

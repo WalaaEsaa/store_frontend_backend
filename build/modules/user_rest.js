@@ -186,22 +186,23 @@ var User_Store = /** @class */ (function () {
             });
         });
     };
-    User_Store.prototype.update = function (u) {
+    User_Store.prototype.update = function (id, firstName, lastName, userName, password) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, user, err_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "UPDATE users SET \n             firstname=($1),\n             lastname=($2),\n             username=($3), \n             userpassword=($4)\n             WHERE id=($5) \n             RETURNING *";
+                        sql = "UPDATE users SET \n            id=($1),  \n            firstname=($2),\n             lastname=($3),\n             username=($4), \n             userpassword=($5)\n             WHERE id=($1) \n             RETURNING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [u.firstName,
-                                u.lastName,
-                                u.userName,
-                                hashPassword(u.password),
-                                u.id])];
+                        return [4 /*yield*/, conn.query(sql, [id,
+                                firstName,
+                                lastName,
+                                userName,
+                                hashPassword(password)
+                            ])];
                     case 2:
                         result = _a.sent();
                         user = result.rows[0];

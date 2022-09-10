@@ -178,23 +178,23 @@ var destory = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
     });
 }); };
 var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, auser, err_4;
+    var id, firstName, lastName, userName, password, auser, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                user = {
-                    id: parseInt(req.params.id),
-                    firstName: req.body.firstname,
-                    lastName: req.body.lastname,
-                    userName: req.body.username,
-                    password: req.body.userpassword
-                };
-                return [4 /*yield*/, uStore.update(user)
+                id = parseInt(req.params.id);
+                firstName = req.body.firstname;
+                lastName = req.body.lastname;
+                userName = req.body.username;
+                password = req.body.userpassword;
+                return [4 /*yield*/, uStore.update(id, firstName, lastName, userName, password)
+                    // res.json(auser)
                     //  console.log(auser)
                 ];
             case 1:
                 auser = _a.sent();
+                // res.json(auser)
                 //  console.log(auser)
                 res.json({
                     states: 'succes',
@@ -216,7 +216,6 @@ var userRoutes = function (app) {
     app.get('/users', authZuser_1.default, index);
     app.get('/users/:id', authZuser_1.default, show);
     app.delete('/users/:id', authZuser_1.default, destory);
-    app.put('/users/:id', authZuser_1.default, update);
-    //app.post('/users', create)
+    app.patch('/users/:id', update);
 };
 exports.default = userRoutes;
