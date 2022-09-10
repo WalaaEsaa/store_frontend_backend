@@ -7,7 +7,7 @@
 |create |post|http://localhost:4010/users|
 |authinticate |post|http://localhost:4010/users/login|
 |delete|delete |http://localhost:4010/users/:id|
-|update|put |http://localhost:4010/users/:id|
+|update|patch |http://localhost:4010/users/:id|
 
  # product route
  |CRUD|REST|rout|
@@ -16,7 +16,7 @@
 |get one | get |http://localhost:4010/products/:id|
 |create |post|http://localhost:4010/products|
 |delete|delete |http://localhost:4010/products/:id|
-|update|put |http://localhost:4010/products/:id|
+|update|patch |http://localhost:4010/products/:id|
 
  # orders route
 
