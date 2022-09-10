@@ -1,0 +1,19 @@
+{
+    "dev":{
+        "driver":"pg",
+        "host":"127.0.0.1",
+        "database":"storefront_backend",
+        "user":"walaa",
+        "password":"walaa123"
+
+    },
+    "test":{
+        "driver":"pg",
+        "host":"127.0.0.1",
+        "database":"storefront_backend_test",
+        "user":"walaa",
+        "password":"walaa123"
+
+    }
+
+}
