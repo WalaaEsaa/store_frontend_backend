@@ -100,22 +100,24 @@ export class User_Store {
             throw new Error(`can not deleted a spesific user ${err}`)
         }
     }
-    async update(u: User): Promise<User | null> {
+    async update( id: number,firstName: string,lastName: string,userName: string, password: string): Promise<User | null> {
         try {
             const sql = `UPDATE users SET 
-             firstname=($1),
-             lastname=($2),
-             username=($3), 
-             userpassword=($4)
-             WHERE id=($5) 
+            id=($1),  
+            firstname=($2),
+             lastname=($3),
+             username=($4), 
+             userpassword=($5)
+             WHERE id=($1) 
              RETURNING *`
             const conn = await Client.connect()
             const result = await conn.query(sql, 
-                [u.firstName,
-                 u.lastName,
-                 u.userName,
-                 hashPassword(u.password),
-                u.id])
+                [id,
+                 firstName,
+                 lastName,
+                 userName,
+                 hashPassword(password)
+                ])
             const user = result.rows[0]
             conn.release()
             return user

@@ -51,9 +51,34 @@ var DBconnection_1 = __importDefault(require("../DBconnection"));
 var product_store = /** @class */ (function () {
     function product_store() {
     }
-    product_store.prototype.index = function () {
+    product_store.prototype.create = function (p_name, price, category) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, product, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = "INSERT INTO products\n            (product_name, price , category ) \n            VALUES ($1,$2,$3) RETURNING *";
+                        return [4 /*yield*/, DBconnection_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [p_name, price, category])];
+                    case 2:
+                        result = _a.sent();
+                        product = result.rows[0];
+                        conn.release();
+                        return [2 /*return*/, product];
+                    case 3:
+                        err_1 = _a.sent();
+                        throw new Error("can not insert new product ".concat(err_1));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    product_store.prototype.index = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, product, err_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -69,8 +94,8 @@ var product_store = /** @class */ (function () {
                         conn.release;
                         return [2 /*return*/, product];
                     case 3:
-                        err_1 = _a.sent();
-                        throw new Error("can not show products information ".concat(err_1));
+                        err_2 = _a.sent();
+                        throw new Error("can not show products information ".concat(err_2));
                     case 4: return [2 /*return*/];
                 }
             });
@@ -78,37 +103,12 @@ var product_store = /** @class */ (function () {
     };
     product_store.prototype.show = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, product, err_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        sql = "SELECT * FROM products WHERE id=$1";
-                        return [4 /*yield*/, DBconnection_1.default.connect()];
-                    case 1:
-                        conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [id])];
-                    case 2:
-                        result = _a.sent();
-                        product = result.rows[0];
-                        conn.release();
-                        return [2 /*return*/, product];
-                    case 3:
-                        err_2 = _a.sent();
-                        throw new Error("can not show product of id = ".concat(id, " : ").concat(err_2));
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    product_store.prototype.delete = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, product, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "DELETE FROM products WHERE id=$1";
+                        sql = "SELECT * FROM products WHERE id=$1";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -126,18 +126,18 @@ var product_store = /** @class */ (function () {
             });
         });
     };
-    product_store.prototype.create = function (p_name, price, category) {
+    product_store.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, product, err_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = 'INSERT INTO products( product_name, price , category ) VALUES ($1,$2,$3) RETURNING *';
+                        sql = "DELETE FROM products WHERE id=$1 RETURING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [p_name, price, category])];
+                        return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         result = _a.sent();
                         product = result.rows[0];
@@ -145,7 +145,32 @@ var product_store = /** @class */ (function () {
                         return [2 /*return*/, product];
                     case 3:
                         err_4 = _a.sent();
-                        throw new Error("can not insert new product ".concat(err_4));
+                        throw new Error("can not show product of id = ".concat(id, " : ").concat(err_4));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    product_store.prototype.updateProduct = function (pID, p_name, price, category) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, product, err_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = "UPDATE products SET \n            product_name=($1),\n            price=($2),\n            category=($3), \n            WHERE id=($4) \n            RETURNING *";
+                        return [4 /*yield*/, DBconnection_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [pID, p_name, price, category])];
+                    case 2:
+                        result = _a.sent();
+                        product = result.rows[0];
+                        conn.release();
+                        return [2 /*return*/, product];
+                    case 3:
+                        err_5 = _a.sent();
+                        throw new Error("can not show product of id = ".concat(pID, " : ").concat(err_5));
                     case 4: return [2 /*return*/];
                 }
             });

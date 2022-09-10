@@ -193,11 +193,15 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "UPDATE users SET  firstname=($1), lastname=($2), username=($3), userpassword=($4) WHERE id=($5)";
+                        sql = "UPDATE users SET \n             firstname=($1),\n             lastname=($2),\n             username=($3), \n             userpassword=($4)\n             WHERE id=($5) \n             RETURNING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [u.firstName, u.lastName, u.userName, hashPassword(u.password)])];
+                        return [4 /*yield*/, conn.query(sql, [u.firstName,
+                                u.lastName,
+                                u.userName,
+                                hashPassword(u.password),
+                                u.id])];
                     case 2:
                         result = _a.sent();
                         user = result.rows[0];

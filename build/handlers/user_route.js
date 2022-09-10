@@ -53,6 +53,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var user_rest_1 = require("../modules/user_rest");
 var dotenv_1 = __importDefault(require("dotenv"));
+var authZuser_1 = __importDefault(require("../authmiddelware/authZuser"));
 dotenv_1.default.config();
 var secretToken = process.env.SECRET_TOKEN;
 var uStore = new user_rest_1.User_Store();
@@ -190,14 +191,14 @@ var update = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                     password: req.body.userpassword
                 };
                 return [4 /*yield*/, uStore.update(user)
-                    // if (!auser) {res.json('user id not found ')}
+                    //  console.log(auser)
                 ];
             case 1:
                 auser = _a.sent();
-                // if (!auser) {res.json('user id not found ')}
+                //  console.log(auser)
                 res.json({
                     states: 'succes',
-                    data: { auser: auser },
+                    data: auser,
                     message: "auser updated"
                 });
                 return [3 /*break*/, 3];
@@ -209,33 +210,13 @@ var update = function (req, res) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); };
-var verifyAuthToken = function (req, res, next) {
-    try {
-        var authzHeader = req.headers.authorization || ' ';
-        console.log('auth ' + authzHeader);
-        var token = authzHeader.split(' ')[1];
-        console.log('token: ' + token);
-        console.log('secretToken: ' + secretToken);
-        if (!token) {
-            throw new Error('Authentication failed!');
-        }
-        var verified = jsonwebtoken_1.default.verify(token, secretToken);
-        req.body = verified;
-        console.log(verified);
-        next();
-    }
-    catch (err) {
-        res.status(401);
-        res.json("token requir ".concat(err));
-    }
-};
 var userRoutes = function (app) {
     app.post('/users', create);
     app.post('/users/login', authenticate);
-    app.get('/users', verifyAuthToken, index);
-    app.get('/users/:id', verifyAuthToken, show);
-    app.delete('/users/:id', verifyAuthToken, destory);
-    app.put('/users/:id', verifyAuthToken, update);
+    app.get('/users', authZuser_1.default, index);
+    app.get('/users/:id', authZuser_1.default, show);
+    app.delete('/users/:id', authZuser_1.default, destory);
+    app.put('/users/:id', authZuser_1.default, update);
     //app.post('/users', create)
 };
 exports.default = userRoutes;
