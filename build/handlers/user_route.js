@@ -56,19 +56,58 @@ var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 var secretToken = process.env.SECRET_TOKEN;
 var uStore = new user_rest_1.User_Store();
+var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, newUser, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                user = {
+                    firstName: req.body.firstname,
+                    lastName: req.body.lastname,
+                    userName: req.body.username,
+                    password: req.body.userpassword
+                };
+                return [4 /*yield*/, uStore.create(user)];
+            case 1:
+                newUser = _a.sent();
+                console.log(newUser);
+                if (!newUser) {
+                    res.json('data exit or error in data');
+                }
+                res.json(newUser);
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                res.status(400);
+                res.json(err_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, password, u, token, error_1;
+    var username, password, user, token, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 username = req.body.username;
-                password = req.body.password;
+                password = req.body.userpassword;
                 return [4 /*yield*/, uStore.authenticate(username, password)];
             case 1:
-                u = _a.sent();
-                token = jsonwebtoken_1.default.sign({ user: u }, secretToken);
-                res.json(token);
+                user = _a.sent();
+                token = jsonwebtoken_1.default.sign({ user: user }, secretToken);
+                // res.json(token)
+                if (!user) {
+                    res.status(401);
+                    res.json('user un authinticate');
+                }
+                res.json({
+                    status: 'success',
+                    data: __assign(__assign({}, user), { token: token }),
+                    message: 'user authintication'
+                });
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();
@@ -92,63 +131,79 @@ var index = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
     });
 }); };
 var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, password, auser, token, err_1;
+    var id, auser, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                username = req.body.username;
-                password = req.body.userpassword;
-                return [4 /*yield*/, uStore.show(username, password)];
+                id = parseInt(req.params.id);
+                return [4 /*yield*/, uStore.show(id)];
             case 1:
                 auser = _a.sent();
-                console.log(auser);
-                token = jsonwebtoken_1.default.sign({ user: auser }, secretToken);
                 if (!auser) {
-                    res.status(401);
-                    res.json('user un authinticate');
+                    res.json('user id not found ');
                 }
-                res.json({
-                    status: 'success',
-                    data: __assign(__assign({}, auser), { token: token }),
-                    message: 'user authintication'
-                });
+                res.json(auser);
                 return [3 /*break*/, 3];
             case 2:
-                err_1 = _a.sent();
-                res.status(401); //unautherize
-                res.json(err_1);
+                err_2 = _a.sent();
+                res.json(err_2);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, newUser, err_2;
+var destory = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, auser, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                id = parseInt(req.params.id);
+                return [4 /*yield*/, uStore.destory(id)
+                    // if (!auser) {res.json('user id not found ')}
+                ];
+            case 1:
+                auser = _a.sent();
+                // if (!auser) {res.json('user id not found ')}
+                res.json("auser deleted");
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                res.json(err_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, auser, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 user = {
+                    id: parseInt(req.params.id),
                     firstName: req.body.firstname,
                     lastName: req.body.lastname,
                     userName: req.body.username,
                     password: req.body.userpassword
                 };
-                return [4 /*yield*/, uStore.create(user)
-                    //  var token = jwt.sign({ user: newUser }, secretToken)
-                    //  console.log('token: ' + token)
+                return [4 /*yield*/, uStore.update(user)
+                    // if (!auser) {res.json('user id not found ')}
                 ];
             case 1:
-                newUser = _a.sent();
-                //  var token = jwt.sign({ user: newUser }, secretToken)
-                //  console.log('token: ' + token)
-                res.json(newUser);
+                auser = _a.sent();
+                // if (!auser) {res.json('user id not found ')}
+                res.json({
+                    states: 'succes',
+                    data: { auser: auser },
+                    message: "auser updated"
+                });
                 return [3 /*break*/, 3];
             case 2:
-                err_2 = _a.sent();
-                res.status(400);
-                res.json(err_2);
+                err_4 = _a.sent();
+                res.json(err_4);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
@@ -175,10 +230,12 @@ var verifyAuthToken = function (req, res, next) {
     }
 };
 var userRoutes = function (app) {
-    app.post('/users/login', verifyAuthToken, authenticate);
-    app.get('/users', verifyAuthToken, index);
-    app.get('/users/:id', show);
     app.post('/users', create);
+    app.post('/users/login', authenticate);
+    app.get('/users', verifyAuthToken, index);
+    app.get('/users/:id', verifyAuthToken, show);
+    app.delete('/users/:id', verifyAuthToken, destory);
+    app.put('/users/:id', verifyAuthToken, update);
     //app.post('/users', create)
 };
 exports.default = userRoutes;

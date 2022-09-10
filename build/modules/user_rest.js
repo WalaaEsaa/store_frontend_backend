@@ -62,6 +62,32 @@ var hashPassword = function (password) {
 var User_Store = /** @class */ (function () {
     function User_Store() {
     }
+    User_Store.prototype.create = function (u) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, user, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = "INSERT INTO users (firstname,lastname,username,userpassword) VALUES($1,$2,$3,$4) RETURNING *";
+                        return [4 /*yield*/, DBconnection_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [u.firstName, u.lastName, u.userName, hashPassword(u.password)])];
+                    case 2:
+                        result = _a.sent();
+                        console.log(hashPassword(u.password));
+                        user = result.rows[0];
+                        conn.release();
+                        return [2 /*return*/, user];
+                    case 3:
+                        err_1 = _a.sent();
+                        throw new Error("can not insert new user ".concat(err_1));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     User_Store.prototype.authenticate = function (username, password) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, user;
@@ -71,15 +97,11 @@ var User_Store = /** @class */ (function () {
                     case 1:
                         conn = _a.sent();
                         sql = 'SELECT userpassword FROM users WHERE username=($1)';
-                        return [4 /*yield*/, conn.query(sql, [username])
-                            // console.log(password + pepper)
-                        ];
+                        return [4 /*yield*/, conn.query(sql, [username])];
                     case 2:
                         result = _a.sent();
-                        // console.log(password + pepper)
                         if (result.rows.length) {
                             user = result.rows[0];
-                            //console.log(user)
                             if (bcrypt_1.default.compareSync("".concat(password).concat(pepper), user.userpassword)) {
                                 return [2 /*return*/, user];
                             }
@@ -91,7 +113,7 @@ var User_Store = /** @class */ (function () {
     };
     User_Store.prototype.index = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, user, err_1;
+            var sql, conn, result, user, err_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -107,65 +129,83 @@ var User_Store = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, user];
                     case 3:
-                        err_1 = _a.sent();
-                        throw new Error("can not show suer ".concat(err_1));
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    User_Store.prototype.show = function (username, password) {
-        return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, user, err_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        sql = "SELECT firstname,lastname,username,userpassword FROM  users WHERE username=($1)";
-                        return [4 /*yield*/, DBconnection_1.default.connect()];
-                    case 1:
-                        conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [username])];
-                    case 2:
-                        result = _a.sent();
-                        if (result.rows.length) {
-                            user = result.rows[0];
-                            // console.log('ssss '+user.userpassword)
-                            if (bcrypt_1.default.compareSync("".concat(password).concat(pepper), user.userpassword)) {
-                                return [2 /*return*/, user];
-                            }
-                        }
-                        conn.release();
-                        return [2 /*return*/, null];
-                    case 3:
                         err_2 = _a.sent();
-                        throw new Error("can not show a spesific user ".concat(err_2));
+                        throw new Error("can not show suer ".concat(err_2));
                     case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    User_Store.prototype.create = function (u) {
+    User_Store.prototype.show = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, user, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "INSERT INTO users (firstname,lastname,username,userpassword) VALUES($1,$2,$3,$4)";
+                        sql = "SELECT firstname,lastname,username,userpassword FROM  users WHERE id=($1)";
+                        return [4 /*yield*/, DBconnection_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [id])];
+                    case 2:
+                        result = _a.sent();
+                        user = result.rows[0];
+                        conn.release();
+                        return [2 /*return*/, user];
+                    case 3:
+                        err_3 = _a.sent();
+                        throw new Error("can not show a spesific user ".concat(err_3));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    User_Store.prototype.destory = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, user, err_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = "DELETE FROM  users WHERE id=($1)";
+                        return [4 /*yield*/, DBconnection_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [id])];
+                    case 2:
+                        result = _a.sent();
+                        user = result.rows[0];
+                        conn.release();
+                        return [2 /*return*/, user];
+                    case 3:
+                        err_4 = _a.sent();
+                        throw new Error("can not deleted a spesific user ".concat(err_4));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    User_Store.prototype.update = function (u) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, user, err_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = "UPDATE users SET  firstname=($1), lastname=($2), username=($3), userpassword=($4) WHERE id=($5)";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [u.firstName, u.lastName, u.userName, hashPassword(u.password)])];
                     case 2:
                         result = _a.sent();
-                        console.log(hashPassword(u.password));
                         user = result.rows[0];
                         conn.release();
                         return [2 /*return*/, user];
                     case 3:
-                        err_3 = _a.sent();
-                        throw new Error("can not insert new user ".concat(err_3));
+                        err_5 = _a.sent();
+                        throw new Error("can not update a spesific user ".concat(err_5));
                     case 4: return [2 /*return*/];
                 }
             });
