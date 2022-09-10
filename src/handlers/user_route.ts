@@ -86,13 +86,13 @@ const update = async (req: Request, res: Response) => {
             const password= req.body.userpassword
         
         const auser = await uStore.update(id,firstName,lastName,userName,password )
-      res.json(auser)
+     // res.json(auser)
         //  console.log(auser)
-      /*  res.json({
+       res.json({
             states: 'succes',
             data: auser,
             message: `auser updated`
-        })*/
+        })
 
     } catch (err) {
         res.json(err)
@@ -105,7 +105,7 @@ const userRoutes = (app: express.Application) => {
     app.get('/users', verifyAuthToken, index)
     app.get('/users/:id', verifyAuthToken, show)
     app.delete('/users/:id', verifyAuthToken, destory)
-    app.patch('/users/:id', verifyAuthToken, update)
+    app.patch('/users/:id',   update)
 
    
 }
