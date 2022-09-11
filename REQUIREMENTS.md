@@ -1,7 +1,10 @@
+<<<<<<< HEAD
  
  
 # main route
  http://localhost:4010
+=======
+>>>>>>> 17ef0fa377a14f5f1dea540a76d084d80d11dea6
 
  # users route
 |CRUD|REST|rout|
@@ -32,6 +35,7 @@
 |delete|delete |http://localhost:4010/orders/:id|
 |update|put |http://localhost:4010/orders/:id
 
+<<<<<<< HEAD
 ## Database schema
 
 ![This is ER image](https://github.com/WalaaEsaa/stor_fronend_backend/blob/main/screenshot/er_schema.JPG)
@@ -65,3 +69,5 @@ order_status statue,
 product_id INTEGER REFERENCES products(id),
 user_id INTEGER REFERENCES users(id)
 );
+=======
+>>>>>>> 17ef0fa377a14f5f1dea540a76d084d80d11dea6
