@@ -2,41 +2,24 @@
  Users need to be able to browse an index of all products, see the specifics of a single product, and add products to an order that they can view in a cart page. You have been tasked with building the API that will support this application, and your coworker is building the frontend.
 
 # run 
-## main server
-npm run start 
 
-## for testing
- npm run test
+ | run | script|
+ ---------------
+ |main server| npm run start|
+ |for prettier| npm run format|
+ |for eslint| npm run lint|
+ |for migration database|npm run migrate|
+ |for jasmine test| npm run test|
 
+## .env
 
-# main route
- http://localhost:4010
-
- # users route
-|CRUD|REST|rout|
- |------|----|--------|
-|get all|get |http://localhost:4010/users|
-|get one | get |http://localhost:4010/users/:id|
-|create |post|http://localhost:4010/users|
-|authinticate |post|http://localhost:4010/users/login|
-|delete|delete |http://localhost:4010/users/:id|
-|update|put |http://localhost:4010/users/:id|
-
- # product route
- |CRUD|REST|rout|
- |------|----|--------|
-|get all|get |http://localhost:4010/products|
-|get one | get |http://localhost:4010/products/:id|
-|create |post|http://localhost:4010/products|
-|delete|delete |http://localhost:4010/products/:id|
-|update|put |http://localhost:4010/products/:id|
-
- # orders route
-
- |CRUD|REST|rout|
- |------|----|--------|
-|get all|get |http://localhost:4010/orders|
-|get one | get |http://localhost:4010/orders/:id|
-|create |post|http://localhost:4010/orders|
-|delete|delete |http://localhost:4010/orders/:id|
-|update|put |http://localhost:4010/orders/:id
+PORT=4010
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DB=storefront_backend
+POSTGRES_DB_TEST=storefront_backend_test
+POSTGRES_USER=walaa
+POSTGRES_PASSWORD=walaa123
+ENV=dev
+SALT_AROUND=10
+SECRET_PASSWORD=my_secrert_password
+SECRET_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IndhbGFhIiwiaWF0IjoxNTE2MjM5MDIyfQ.2OcbU6PCAPjGympPpBRmUb_G-at0wACIUxLDZ0t_ToY

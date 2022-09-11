@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var product_rest_1 = require("../../modules/product_rest");
 var pStore = new product_rest_1.product_store();
-describe("product Model", function () {
+describe('product Model', function () {
     // if functions found in product modules or not
-    describe("product functions defined ", function () {
+    describe('product functions defined ', function () {
         it('should have an index method', function () {
             expect(pStore.index).toBeDefined();
         });

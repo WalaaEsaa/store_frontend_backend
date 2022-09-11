@@ -47,7 +47,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.product_store = void 0;
 var DBconnection_1 = __importDefault(require("../DBconnection"));
-//product class 
+//product class
 var product_store = /** @class */ (function () {
     function product_store() {
     }
@@ -83,7 +83,7 @@ var product_store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "SELECT * FROM products";
+                        sql = 'SELECT * FROM products';
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();

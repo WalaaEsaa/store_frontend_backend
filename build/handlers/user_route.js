@@ -67,7 +67,7 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                     firstName: req.body.firstname,
                     lastName: req.body.lastname,
                     userName: req.body.username,
-                    password: req.body.userpassword
+                    password: req.body.userpassword,
                 };
                 return [4 /*yield*/, uStore.create(user)];
             case 1:
@@ -107,7 +107,7 @@ var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0
                 res.json({
                     status: 'success',
                     data: __assign(__assign({}, user), { token: token }),
-                    message: 'user authintication'
+                    message: 'user authintication',
                 });
                 return [3 /*break*/, 3];
             case 2:
@@ -161,9 +161,7 @@ var destory = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 id = parseInt(req.params.id);
-                return [4 /*yield*/, uStore.destory(id)
-                    // if (!auser) {res.json('user id not found ')}
-                ];
+                return [4 /*yield*/, uStore.destory(id)];
             case 1:
                 auser = _a.sent();
                 // if (!auser) {res.json('user id not found ')}
@@ -188,10 +186,7 @@ var update = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 lastName = req.body.lastname;
                 userName = req.body.username;
                 password = req.body.userpassword;
-                return [4 /*yield*/, uStore.update(id, firstName, lastName, userName, password)
-                    // res.json(auser)
-                    //  console.log(auser)
-                ];
+                return [4 /*yield*/, uStore.update(id, firstName, lastName, userName, password)];
             case 1:
                 auser = _a.sent();
                 // res.json(auser)
@@ -199,7 +194,7 @@ var update = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 res.json({
                     states: 'succes',
                     data: auser,
-                    message: "auser updated"
+                    message: "auser updated",
                 });
                 return [3 /*break*/, 3];
             case 2:

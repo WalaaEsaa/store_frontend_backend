@@ -73,7 +73,12 @@ var User_Store = /** @class */ (function () {
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [u.firstName, u.lastName, u.userName, hashPassword(u.password)])];
+                        return [4 /*yield*/, conn.query(sql, [
+                                u.firstName,
+                                u.lastName,
+                                u.userName,
+                                hashPassword(u.password),
+                            ])];
                     case 2:
                         result = _a.sent();
                         console.log(hashPassword(u.password));
@@ -118,7 +123,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "SELECT firstname,lastname,username FROM users";
+                        sql = 'SELECT firstname,lastname,username FROM users';
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -143,7 +148,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "SELECT firstname,lastname,username,userpassword FROM  users WHERE id=($1)";
+                        sql = 'SELECT firstname,lastname,username,userpassword FROM  users WHERE id=($1)';
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -168,7 +173,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "DELETE FROM  users WHERE id=($1)";
+                        sql = 'DELETE FROM  users WHERE id=($1)';
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -197,11 +202,12 @@ var User_Store = /** @class */ (function () {
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [id,
+                        return [4 /*yield*/, conn.query(sql, [
+                                id,
                                 firstName,
                                 lastName,
                                 userName,
-                                hashPassword(password)
+                                hashPassword(password),
                             ])];
                     case 2:
                         result = _a.sent();

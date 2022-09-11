@@ -54,7 +54,12 @@ var Orders_store = /** @class */ (function () {
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [order.quantity, order.statuse, order.product_id, order.user_id])];
+                        return [4 /*yield*/, conn.query(sql, [
+                                order.quantity,
+                                order.statuse,
+                                order.product_id,
+                                order.user_id,
+                            ])];
                     case 2:
                         result = _a.sent();
                         ordern = result.rows[0];
@@ -91,7 +96,7 @@ var Orders_store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "SELECT * FROM orders";
+                        sql = 'SELECT * FROM orders';
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -145,7 +150,13 @@ var Orders_store = /** @class */ (function () {
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [id, quantity, statues, product_id, user_id])];
+                        return [4 /*yield*/, conn.query(sql, [
+                                id,
+                                quantity,
+                                statues,
+                                product_id,
+                                user_id,
+                            ])];
                     case 2:
                         result = _a.sent();
                         order = result.rows[0];

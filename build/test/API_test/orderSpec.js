@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var order_rest_1 = require("../../modules/order_rest");
 var oStore = new order_rest_1.Orders_store();
-describe("user Model", function () {
+describe('user Model', function () {
     // if functions found in user modules or not
-    describe("orders functions defined ", function () {
+    describe('orders functions defined ', function () {
         it('should have an crate method', function () {
             expect(oStore.create).toBeDefined();
         });

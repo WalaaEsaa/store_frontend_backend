@@ -11,6 +11,6 @@ var Client = new pg_1.Pool({
     host: POSTGRES_HOST,
     user: POSTGRES_USER,
     password: POSTGRES_PASSWORD,
-    database: process.env.ENV === 'test' ? POSTGRES_DB_TEST : POSTGRES_DB
+    database: process.env.ENV === 'test' ? POSTGRES_DB_TEST : POSTGRES_DB,
 });
 exports.default = Client;

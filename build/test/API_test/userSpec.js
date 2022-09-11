@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_rest_1 = require("../../modules/user_rest");
 var uStore = new user_rest_1.User_Store();
-describe("user Model", function () {
+describe('user Model', function () {
     // if functions found in user modules or not
-    describe("users functions defined ", function () {
+    describe('users functions defined ', function () {
         it('should have an index method', function () {
             expect(uStore.index).toBeDefined();
         });

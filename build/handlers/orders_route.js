@@ -55,7 +55,7 @@ var dotenv_1 = __importDefault(require("dotenv"));
 var authZuser_1 = __importDefault(require("../authmiddelware/authZuser"));
 dotenv_1.default.config();
 var secretToken = process.env.SECRET_TOKEN;
-var oStore = new order_rest_1.Orders_store;
+var oStore = new order_rest_1.Orders_store();
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var order, newOrder, err_1;
     return __generator(this, function (_a) {
@@ -66,7 +66,7 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                     quantity: req.body.product_quantity,
                     statuse: req.body.order_status,
                     product_id: req.body.product_id,
-                    user_id: req.body.user_id
+                    user_id: req.body.user_id,
                 };
                 console.log(order);
                 return [4 /*yield*/, oStore.create(order)];
@@ -99,13 +99,13 @@ var showOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                     res.json({
                         status: 'success',
                         data: __assign({}, orders),
-                        message: 'user ordered'
+                        message: 'user ordered',
                     });
                 }
                 else {
                     res.json({
                         status: 'no order',
-                        message: 'user not ordered'
+                        message: 'user not ordered',
                     });
                 }
                 return [3 /*break*/, 3];
@@ -137,9 +137,7 @@ var deleteOrder = function (req, res) { return __awaiter(void 0, void 0, void 0,
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 id = parseInt(req.params.id);
-                return [4 /*yield*/, oStore.deleteOrder(id)
-                    // if (!auser) {res.json('user id not found ')}
-                ];
+                return [4 /*yield*/, oStore.deleteOrder(id)];
             case 1:
                 auser = _a.sent();
                 // if (!auser) {res.json('user id not found ')}
@@ -173,7 +171,7 @@ var updateOrders = function (req, res) { return __awaiter(void 0, void 0, void 0
                 res.json({
                     states: 'succes',
                     data: orderupdate,
-                    message: "auser updated"
+                    message: "auser updated",
                 });
                 return [3 /*break*/, 3];
             case 2:
