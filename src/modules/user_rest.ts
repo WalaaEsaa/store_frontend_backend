@@ -15,7 +15,7 @@ password
 const saltRound = process.env.SALT_AROUND as string;
 const pepper = process.env.SECRET_PASSWORD;
 
-const hashPassword = (password: string) => {
+export const hashPassword = (password: string) => {
   const salt = parseInt(saltRound, 10);
   return bcrypt.hashSync(`${password}${pepper}`, salt);
 };
@@ -29,17 +29,21 @@ export type User = {
 };
 
 export class User_Store {
-  async create(u: User): Promise<User> {
+  async create(
+    firstName: string,
+    lastName: string,
+    userName: string,
+    password: string): Promise<User> {
     try {
       const sql = `INSERT INTO users (firstname,lastname,username,userpassword) VALUES($1,$2,$3,$4) RETURNING *`;
       const conn = await Client.connect();
       const result = await conn.query(sql, [
-        u.firstName,
-        u.lastName,
-        u.userName,
-        hashPassword(u.password),
+        firstName,
+       lastName,
+        userName,
+        hashPassword(password),
       ]);
-      console.log(hashPassword(u.password));
+      console.log(hashPassword(password));
       const user = result.rows[0];
       conn.release();
       return user;
@@ -131,3 +135,4 @@ export class User_Store {
     }
   }
 }
+

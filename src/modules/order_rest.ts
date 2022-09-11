@@ -7,6 +7,7 @@ export type Orders = {
   product_id: number;
   user_id: number;
 };
+
 export class Orders_store {
   async create(order: Orders): Promise<Orders> {
     const sql = `INSERT INTO orders(product_quantity,order_status,product_id,user_id) 

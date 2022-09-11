@@ -16,7 +16,7 @@ const create = async (req: Request, res: Response) => {
       userName: req.body.username,
       password: req.body.userpassword,
     };
-    const newUser = await uStore.create(user);
+    const newUser = await uStore.create(user.firstName,user.lastName,user.userName,user.password);
     console.log(newUser);
     if (!newUser) {
       res.json('data exit or error in data');

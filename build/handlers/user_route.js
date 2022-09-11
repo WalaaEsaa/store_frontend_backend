@@ -69,7 +69,7 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                     userName: req.body.username,
                     password: req.body.userpassword,
                 };
-                return [4 /*yield*/, uStore.create(user)];
+                return [4 /*yield*/, uStore.create(user.firstName, user.lastName, user.userName, user.password)];
             case 1:
                 newUser = _a.sent();
                 console.log(newUser);

@@ -11,7 +11,7 @@
     "migrate": "db-migrate --env test up && db-migrate up ",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./build --onSuccess \"node ./build/server.js\"",
     "start": "npm run build && nodemon src/server.ts",
-    "test": "set ENV=test&& tsc && db-migrate --env test up && tsc && jasmine && db-migrate --env test down"
+    "test": "set ENV=test&& tsc&& db-migrate --env test down -c 3 && db-migrate --env test up && tsc && jasmine && db-migrate --env test down "
   },
   "keywords": [],
   "author": "",

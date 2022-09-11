@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User_Store = void 0;
+exports.User_Store = exports.hashPassword = void 0;
 var DBconnection_1 = __importDefault(require("../DBconnection"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
 /*
@@ -59,10 +59,11 @@ var hashPassword = function (password) {
     var salt = parseInt(saltRound, 10);
     return bcrypt_1.default.hashSync("".concat(password).concat(pepper), salt);
 };
+exports.hashPassword = hashPassword;
 var User_Store = /** @class */ (function () {
     function User_Store() {
     }
-    User_Store.prototype.create = function (u) {
+    User_Store.prototype.create = function (firstName, lastName, userName, password) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, user, err_1;
             return __generator(this, function (_a) {
@@ -74,14 +75,14 @@ var User_Store = /** @class */ (function () {
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [
-                                u.firstName,
-                                u.lastName,
-                                u.userName,
-                                hashPassword(u.password),
+                                firstName,
+                                lastName,
+                                userName,
+                                (0, exports.hashPassword)(password),
                             ])];
                     case 2:
                         result = _a.sent();
-                        console.log(hashPassword(u.password));
+                        console.log((0, exports.hashPassword)(password));
                         user = result.rows[0];
                         conn.release();
                         return [2 /*return*/, user];
@@ -207,7 +208,7 @@ var User_Store = /** @class */ (function () {
                                 firstName,
                                 lastName,
                                 userName,
-                                hashPassword(password),
+                                (0, exports.hashPassword)(password),
                             ])];
                     case 2:
                         result = _a.sent();
