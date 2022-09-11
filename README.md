@@ -7,7 +7,7 @@
 # run 
 
  | run | script|
- ---------------
+ |-------|--------|
  |main server| npm run start|
  |for prettier| npm run format|
  |for eslint| npm run lint|
