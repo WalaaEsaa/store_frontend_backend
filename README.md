@@ -17,14 +17,23 @@
 ## .env
 
 PORT=4010
+
 POSTGRES_HOST=127.0.0.1
+
 POSTGRES_DB=storefront_backend
+
 POSTGRES_DB_TEST=storefront_backend_test
+
 POSTGRES_USER=walaa
+
 POSTGRES_PASSWORD=walaa123
+
 ENV=dev
+
 SALT_AROUND=10
+
 SECRET_PASSWORD=my_secrert_password
+
 SECRET_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IndhbGFhIiwiaWF0IjoxNTE2MjM5MDIyfQ.2OcbU6PCAPjGympPpBRmUb_G-at0wACIUxLDZ0t_ToY
 
 # main route
