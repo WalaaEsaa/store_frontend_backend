@@ -14,7 +14,7 @@ const create = async (req: Request, res: Response) => {
     const category: string = req.body.category;
 
     const newProduct = await pStore.create(p_name, price, category);
-    console.log(newProduct);
+   // console.log(newProduct);
     res.json(newProduct);
     /* //if (newProduct) {
            // var token = jwt.sign({ product: newProduct }, secretToken)

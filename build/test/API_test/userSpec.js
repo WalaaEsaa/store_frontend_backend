@@ -66,16 +66,15 @@ describe('user Model', function () {
     });
     describe('users  CRUD modules', function () {
         var testUser = {
-            firstName: 'walaa',
-            lastName: 'esaa',
-            userName: 'walaa',
-            // password: 'walaa',
+            firstname: 'walaa',
+            lastname: 'esaa',
+            username: 'walaa',
         };
         beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
             var createUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, uStore.create(testUser.firstName, testUser.lastName, testUser.userName, testUser.password)];
+                    case 0: return [4 /*yield*/, uStore.create(testUser.firstname, testUser.lastname, testUser.username, testUser.userpassword)];
                     case 1:
                         createUser = _a.sent();
                         testUser.id = createUser.id;
@@ -106,11 +105,10 @@ describe('user Model', function () {
                     case 0: return [4 /*yield*/, uStore.create('walaa', 'esaa', 'walaa1', 'walaa')];
                     case 1:
                         createuser = _a.sent();
-                        console.log(createuser);
                         expect(createuser.id).toEqual(2);
-                        expect(createuser.firstName).toEqual('walaa');
-                        expect(createuser.lastName).toEqual('esaa');
-                        expect(createuser.userName).toEqual('walaa1');
+                        expect(createuser.firstname).toEqual('walaa');
+                        expect(createuser.lastname).toEqual('esaa');
+                        expect(createuser.username).toEqual('walaa1');
                         return [2 /*return*/];
                 }
             });
@@ -135,9 +133,9 @@ describe('user Model', function () {
                     case 1:
                         auser = _a.sent();
                         expect(auser === null || auser === void 0 ? void 0 : auser.id).toBe(testUser.id);
-                        expect(auser === null || auser === void 0 ? void 0 : auser.firstName).toBe(testUser.firstName);
-                        expect(auser === null || auser === void 0 ? void 0 : auser.lastName).toBe(testUser.firstName);
-                        expect(auser === null || auser === void 0 ? void 0 : auser.userName).toBe(testUser.firstName);
+                        expect(auser === null || auser === void 0 ? void 0 : auser.firstname).toBe(testUser.firstname);
+                        expect(auser === null || auser === void 0 ? void 0 : auser.lastname).toBe(testUser.lastname);
+                        expect(auser === null || auser === void 0 ? void 0 : auser.username).toBe(testUser.firstname);
                         return [2 /*return*/];
                 }
             });
@@ -150,9 +148,9 @@ describe('user Model', function () {
                     case 1:
                         updateUser = _a.sent();
                         expect(updateUser === null || updateUser === void 0 ? void 0 : updateUser.id).toBe(testUser.id);
-                        expect(updateUser === null || updateUser === void 0 ? void 0 : updateUser.firstName).toBe(testUser.firstName);
-                        expect(updateUser === null || updateUser === void 0 ? void 0 : updateUser.lastName).toBe(testUser.lastName);
-                        expect(updateUser === null || updateUser === void 0 ? void 0 : updateUser.userName).toBe('walaa123');
+                        expect(updateUser === null || updateUser === void 0 ? void 0 : updateUser.firstname).toBe(testUser.firstname);
+                        expect(updateUser === null || updateUser === void 0 ? void 0 : updateUser.lastname).toBe(testUser.lastname);
+                        expect(updateUser === null || updateUser === void 0 ? void 0 : updateUser.username).toBe('walaa123');
                         return [2 /*return*/];
                 }
             });

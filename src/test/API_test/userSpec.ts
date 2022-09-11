@@ -29,13 +29,12 @@ describe('user Model', () => {
   });
   describe('users  CRUD modules', () => {
     const testUser = {
-      firstName: 'walaa',
-      lastName: 'esaa',
-      userName: 'walaa',
-      // password: 'walaa',
-    } as User
+      firstname: 'walaa',
+      lastname: 'esaa',
+      username: 'walaa',
+         } as unknown as User
     beforeAll(async () => {
-      const createUser = await uStore.create(testUser.firstName, testUser.lastName, testUser.userName, testUser.password)
+      const createUser = await uStore.create(testUser.firstname, testUser.lastname, testUser.username, testUser.userpassword)
       testUser.id = createUser.id
     })
     afterAll(async () => {
@@ -47,11 +46,10 @@ describe('user Model', () => {
     it('create user should return a new user', async () => {
 
       const createuser = await uStore.create('walaa', 'esaa', 'walaa1', 'walaa')
-      console.log(createuser)
       expect(createuser.id).toEqual(2)
-      expect(createuser.firstName as string).toEqual('walaa')
-      expect(createuser.lastName as string).toEqual('esaa')
-      expect(createuser.userName as string).toEqual('walaa1')
+      expect(createuser.firstname).toEqual('walaa')
+      expect(createuser.lastname).toEqual('esaa')
+      expect(createuser.username).toEqual('walaa1')
     })
 
     it('get all user data ', async () => {
@@ -61,24 +59,25 @@ describe('user Model', () => {
 
     it('get one user data ', async () => {
       const auser = await uStore.show(testUser.id as number)
+      
       expect(auser?.id).toBe(testUser.id)
-      expect(auser?.firstName).toBe(testUser.firstName)
-      expect(auser?.lastName).toBe(testUser.firstName)
-      expect(auser?.userName).toBe(testUser.firstName)
+      expect(auser?.firstname).toBe(testUser.firstname)
+      expect(auser?.lastname).toBe(testUser.lastname)
+      expect(auser?.username).toBe(testUser.firstname)
     })
 
     it('update user', async () => {
       const updateUser = await uStore.update(1, 'walaa', 'esaa', 'walaa123', 'walaa')
       expect(updateUser?.id).toBe(testUser.id)
-      expect(updateUser?.firstName).toBe(testUser.firstName)
-      expect(updateUser?.lastName).toBe(testUser.lastName)
-      expect(updateUser?.userName).toBe('walaa123')
-      //expect(updateUser?.password).toBe(testUser.password)
+      expect(updateUser?.firstname).toBe(testUser.firstname)
+      expect(updateUser?.lastname).toBe(testUser.lastname)
+      expect(updateUser?.username).toBe('walaa123')
+      
     })
 
     it('delete a user data ', async () => {
-      const deleteusers = await uStore.destory(testUser.id as number)
-      expect(deleteusers?.id).toBe(testUser.id)
+      const deleteusers = await uStore.destory(testUser.id as number )
+      expect(deleteusers?.id as number).toBe(testUser.id as number)
     })
 
   })

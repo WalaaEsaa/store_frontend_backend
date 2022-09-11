@@ -12,12 +12,12 @@ const oStore = new Orders_store();
 const create = async (req: Request, res: Response) => {
   try {
     const order = {
-      quantity: req.body.product_quantity,
-      statuse: req.body.order_status,
+      product_quantity: req.body.product_quantity,
+      order_status: req.body.order_status,
       product_id: req.body.product_id,
       user_id: req.body.user_id,
     };
-    console.log(order);
+    //console.log(order);
     const newOrder = await oStore.create(order);
     res.json(newOrder);
   } catch (err) {
@@ -80,7 +80,7 @@ const updateOrders = async (req: Request, res: Response) => {
       product_id,
       user_id
     );
-    console.log(orderupdate);
+   // console.log(orderupdate);
     if (!orderupdate) res.json('errrrrr');
     res.json({
       states: 'succes',

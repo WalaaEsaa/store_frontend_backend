@@ -50,13 +50,13 @@ var Orders_store = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        sql = "INSERT INTO orders(product_quantity,order_status,product_id,user_id) \n    VALUES ($1,$2,$3,$4) RETURNING *";
+                        sql = "INSERT INTO orders(product_quantity,order_status,product_id,user_id) \n    VALUES ($1,$2,$3,$4)  RETURNING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [
-                                order.quantity,
-                                order.statuse,
+                                order.product_quantity,
+                                order.order_status,
                                 order.product_id,
                                 order.user_id,
                             ])];
@@ -146,7 +146,7 @@ var Orders_store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "UPDATE orders  SET \n       product_quantity=($1), order_status=($2), product_id=($3), user_id=($4)\n        WHERE id=($5) RETURNING *";
+                        sql = "UPDATE orders  SET \n      id=($1),product_quantity=($2), order_status=($3), product_id=($4), user_id=($5)\n        WHERE id=($1) RETURNING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -164,7 +164,7 @@ var Orders_store = /** @class */ (function () {
                         return [2 /*return*/, order];
                     case 3:
                         err_3 = _a.sent();
-                        throw new Error("can not show order of id =  : ".concat(err_3));
+                        throw new Error("can not show order of id = ".concat(id, "  : ").concat(err_3));
                     case 4: return [2 /*return*/];
                 }
             });

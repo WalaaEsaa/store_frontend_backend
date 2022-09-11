@@ -2,8 +2,8 @@ import Client from '../DBconnection';
 
 export type Orders = {
   id?: number;
-  quantity: number;
-  statuse: string;
+  product_quantity: number;
+  order_status: string;
   product_id: number;
   user_id: number;
 };
@@ -11,11 +11,12 @@ export type Orders = {
 export class Orders_store {
   async create(order: Orders): Promise<Orders> {
     const sql = `INSERT INTO orders(product_quantity,order_status,product_id,user_id) 
-    VALUES ($1,$2,$3,$4) RETURNING *`;
+    VALUES ($1,$2,$3,$4)  RETURNING *`;
+ 
     const conn = await Client.connect();
     const result = await conn.query(sql, [
-      order.quantity,
-      order.statuse,
+      order.product_quantity,
+      order.order_status,
       order.product_id,
       order.user_id,
     ]);
@@ -67,8 +68,8 @@ export class Orders_store {
   ): Promise<Orders> {
     try {
       const sql = `UPDATE orders  SET 
-       product_quantity=($1), order_status=($2), product_id=($3), user_id=($4)
-        WHERE id=($5) RETURNING *`;
+      id=($1),product_quantity=($2), order_status=($3), product_id=($4), user_id=($5)
+        WHERE id=($1) RETURNING *`;
 
       const conn = await Client.connect();
       const result = await conn.query(sql, [
@@ -82,7 +83,7 @@ export class Orders_store {
       conn.release();
       return order;
     } catch (err) {
-      throw new Error(`can not show order of id =  : ${err}`);
+      throw new Error(`can not show order of id = ${id}  : ${err}`);
     }
   }
 }

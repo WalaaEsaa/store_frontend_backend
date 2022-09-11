@@ -41,7 +41,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var order_rest_1 = require("../../modules/order_rest");
 var DBconnection_1 = __importDefault(require("../../DBconnection"));
+var user_rest_1 = require("../../modules/user_rest");
+var product_rest_1 = require("../../modules/product_rest");
 var oStore = new order_rest_1.Orders_store();
+var uStore = new user_rest_1.User_Store();
+var pStore = new product_rest_1.product_store();
 describe('orders Model', function () {
     // if functions found in user modules or not
     describe('orders functions defined ', function () {
@@ -65,8 +69,8 @@ describe('orders Model', function () {
         var testOrder = {
             quantity: 5,
             statuse: 'complete',
-            product_id: 1,
-            user_id: 1
+            product_id: 0,
+            user_id: 0
         };
         beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
             var createOrder;
@@ -101,19 +105,19 @@ describe('orders Model', function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, oStore.create({
-                            quantity: 5,
-                            statuse: 'complete',
-                            product_id: 1,
-                            user_id: 1
+                            product_quantity: 5,
+                            order_status: 'complete',
+                            product_id: 0,
+                            user_id: 0
                         })];
                     case 1:
                         createOrder = _a.sent();
                         expect(createOrder).toEqual({
                             id: createOrder.id,
-                            quantity: 5,
-                            statuse: 'complete',
-                            product_id: 1,
-                            user_id: 1
+                            product_quantity: 5,
+                            order_status: 'complete',
+                            product_id: 0,
+                            user_id: 0
                         });
                         return [2 /*return*/];
                 }
@@ -126,7 +130,7 @@ describe('orders Model', function () {
                     case 0: return [4 /*yield*/, oStore.getALL()];
                     case 1:
                         orders = _a.sent();
-                        expect(orders.length).toBe(2);
+                        expect(orders.length).toBe(1);
                         return [2 /*return*/];
                 }
             });
@@ -138,7 +142,7 @@ describe('orders Model', function () {
                     case 0: return [4 /*yield*/, oStore.showCurrentOrders(testOrder.user_id)];
                     case 1:
                         anorder = _a.sent();
-                        expect(anorder === null || anorder === void 0 ? void 0 : anorder.length).toBe(2);
+                        expect(anorder === null || anorder === void 0 ? void 0 : anorder.length).toBe(0);
                         return [2 /*return*/];
                 }
             });
@@ -147,12 +151,12 @@ describe('orders Model', function () {
             var updateOrder;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, oStore.updateOrders(testOrder.id, testOrder.quantity, testOrder.statuse, testOrder.product_id, testOrder.user_id)];
+                    case 0: return [4 /*yield*/, oStore.updateOrders(testOrder.id, testOrder.product_quantity, testOrder.order_status, testOrder.product_id, testOrder.user_id)];
                     case 1:
                         updateOrder = _a.sent();
                         expect(updateOrder.id).toBe(testOrder.id);
-                        expect(updateOrder.quantity).toBe(testOrder.quantity);
-                        expect(updateOrder.statuse).toBe(testOrder.statuse);
+                        expect(updateOrder.product_quantity).toBe(testOrder.product_quantity);
+                        expect(updateOrder.order_status).toBe(testOrder.order_status);
                         expect(updateOrder.product_id).toBe(testOrder.product_id);
                         expect(updateOrder.user_id).toBe(testOrder.user_id);
                         return [2 /*return*/];

@@ -51,7 +51,7 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 return [4 /*yield*/, pStore.create(p_name, price, category)];
             case 1:
                 newProduct = _a.sent();
-                console.log(newProduct);
+                // console.log(newProduct);
                 res.json(newProduct);
                 return [3 /*break*/, 3];
             case 2:

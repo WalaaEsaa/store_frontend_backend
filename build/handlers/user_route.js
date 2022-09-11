@@ -64,15 +64,15 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 user = {
-                    firstName: req.body.firstname,
-                    lastName: req.body.lastname,
-                    userName: req.body.username,
-                    password: req.body.userpassword,
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    username: req.body.username,
+                    userpassword: req.body.userpassword,
                 };
-                return [4 /*yield*/, uStore.create(user.firstName, user.lastName, user.userName, user.password)];
+                return [4 /*yield*/, uStore.create(user.firstname, user.lastname, user.username, user.userpassword)];
             case 1:
                 newUser = _a.sent();
-                console.log(newUser);
+                //console.log(newUser);
                 if (!newUser) {
                     res.json('data exit or error in data');
                 }

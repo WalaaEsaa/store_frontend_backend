@@ -11,13 +11,13 @@ const uStore = new User_Store();
 const create = async (req: Request, res: Response) => {
   try {
     const user: User = {
-      firstName: req.body.firstname,
-      lastName: req.body.lastname,
-      userName: req.body.username,
-      password: req.body.userpassword,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      username: req.body.username,
+      userpassword: req.body.userpassword,
     };
-    const newUser = await uStore.create(user.firstName,user.lastName,user.userName,user.password);
-    console.log(newUser);
+    const newUser = await uStore.create(user.firstname,user.lastname,user.username,user.userpassword);
+    //console.log(newUser);
     if (!newUser) {
       res.json('data exit or error in data');
     }

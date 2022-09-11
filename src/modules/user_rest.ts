@@ -22,28 +22,28 @@ export const hashPassword = (password: string) => {
 
 export type User = {
   id?: number;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  password: string;
+  firstname: string;
+  lastname: string;
+  username: string;
+  userpassword: string;
 };
 
 export class User_Store {
   async create(
-    firstName: string,
-    lastName: string,
-    userName: string,
-    password: string): Promise<User> {
+    firstname: string,
+    lastname: string,
+    username: string,
+    userpassword: string): Promise<User> {
     try {
       const sql = `INSERT INTO users (firstname,lastname,username,userpassword) VALUES($1,$2,$3,$4) RETURNING *`;
       const conn = await Client.connect();
       const result = await conn.query(sql, [
-        firstName,
-       lastName,
-        userName,
-        hashPassword(password),
+        firstname,
+       lastname,
+        username,
+        hashPassword(userpassword),
       ]);
-      console.log(hashPassword(password));
+     // console.log(hashPassword(userpassword));
       const user = result.rows[0];
       conn.release();
       return user;
@@ -81,7 +81,7 @@ export class User_Store {
   async show(id: number): Promise<User | null> {
     try {
       const sql =
-        'SELECT firstname,lastname,username,userpassword FROM  users WHERE id=($1)';
+        `SELECT id,firstname,lastname,username,userpassword FROM  users WHERE id=($1) `;
       const conn = await Client.connect();
       const result = await conn.query(sql, [id]);
       const user = result.rows[0];
@@ -93,7 +93,7 @@ export class User_Store {
   }
   async destory(id: number): Promise<User | null> {
     try {
-      const sql = 'DELETE FROM  users WHERE id=($1)';
+      const sql = 'DELETE FROM  users WHERE id=($1) RETURNING *';
       const conn = await Client.connect();
       const result = await conn.query(sql, [id]);
       const user = result.rows[0];

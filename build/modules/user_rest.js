@@ -63,7 +63,7 @@ exports.hashPassword = hashPassword;
 var User_Store = /** @class */ (function () {
     function User_Store() {
     }
-    User_Store.prototype.create = function (firstName, lastName, userName, password) {
+    User_Store.prototype.create = function (firstname, lastname, username, userpassword) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, user, err_1;
             return __generator(this, function (_a) {
@@ -75,14 +75,13 @@ var User_Store = /** @class */ (function () {
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [
-                                firstName,
-                                lastName,
-                                userName,
-                                (0, exports.hashPassword)(password),
+                                firstname,
+                                lastname,
+                                username,
+                                (0, exports.hashPassword)(userpassword),
                             ])];
                     case 2:
                         result = _a.sent();
-                        console.log((0, exports.hashPassword)(password));
                         user = result.rows[0];
                         conn.release();
                         return [2 /*return*/, user];
@@ -149,7 +148,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = 'SELECT firstname,lastname,username,userpassword FROM  users WHERE id=($1)';
+                        sql = "SELECT id,firstname,lastname,username,userpassword FROM  users WHERE id=($1) ";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -174,7 +173,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = 'DELETE FROM  users WHERE id=($1)';
+                        sql = 'DELETE FROM  users WHERE id=($1) RETURNING *';
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();

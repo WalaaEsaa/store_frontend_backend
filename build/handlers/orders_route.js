@@ -63,12 +63,11 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 order = {
-                    quantity: req.body.product_quantity,
-                    statuse: req.body.order_status,
+                    product_quantity: req.body.product_quantity,
+                    order_status: req.body.order_status,
                     product_id: req.body.product_id,
                     user_id: req.body.user_id,
                 };
-                console.log(order);
                 return [4 /*yield*/, oStore.create(order)];
             case 1:
                 newOrder = _a.sent();
@@ -165,7 +164,7 @@ var updateOrders = function (req, res) { return __awaiter(void 0, void 0, void 0
                 return [4 /*yield*/, oStore.updateOrders(id, quantity, statues, product_id, user_id)];
             case 1:
                 orderupdate = _a.sent();
-                console.log(orderupdate);
+                // console.log(orderupdate);
                 if (!orderupdate)
                     res.json('errrrrr');
                 res.json({

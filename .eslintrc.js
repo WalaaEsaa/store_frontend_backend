@@ -18,6 +18,7 @@ module.exports = {
         "@typescript-eslint","prettier"
     ],
     "rules": {
+       // 'no-console':2,
         "@typescript-eslint/no-explicit-any": "warn",
         "@typescript-eslint/no-var-requires": "error",
         "@typescript-eslint/no-explicit-any": "warn"
