@@ -69,8 +69,16 @@ CREATE TABLE users(
 CREATE TYPE statue AS ENUM ('active' , 'complete');
 CREATE TABLE orders(
 id SERIAL PRIMARY KEY,
-product_quantity INTEGER,
 order_status statue,
-product_id INTEGER REFERENCES products(id),
 user_id INTEGER REFERENCES users(id)
+);
+
+
+## order_product tables
+
+CREATE TABLE orders_products(
+order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE ON UPDATE CASCADE ,
+product_id INTEGER REFERENCES products(id) ON DELETE CASCADE ON UPDATE CASCADE,
+product_quantity INTEGER,
+PRIMARY KEY(order_id,product_id)
 );
