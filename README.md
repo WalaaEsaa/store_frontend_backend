@@ -33,7 +33,7 @@
 
 ## .env
 
-PORT=4010
+PORT=5000
 
 POSTGRES_HOST=127.0.0.1
 
@@ -54,6 +54,6 @@ SECRET_PASSWORD=my_secrert_password
 SECRET_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IndhbGFhIiwiaWF0IjoxNTE2MjM5MDIyfQ.2OcbU6PCAPjGympPpBRmUb_G-at0wACIUxLDZ0t_ToY
 
 # main route
- http://localhost:4010
+ http://localhost:5000
 
 
