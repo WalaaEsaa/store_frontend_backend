@@ -12,22 +12,23 @@ export type Product = {
   id?: number;
   product_name: string;
   price: number;
-  product_category: string;
+  category: string;
 };
 
 //product class
 export class product_store {
   async create(
+    //id:number,
     product_name: string,
     price: number,
-    product_category: string
+    category: string
   ): Promise<Product> {
     try {
       const sql = `INSERT INTO products
             (product_name, price , category ) 
             VALUES ($1,$2,$3) RETURNING *`;
       const conn = await Client.connect();
-      const result = await conn.query(sql, [product_name, price, product_category]);
+      const result = await conn.query(sql, [product_name, price, category]);
       const product = result.rows[0];
       conn.release();
       return product;

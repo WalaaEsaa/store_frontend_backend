@@ -32,6 +32,15 @@
 |delete|delete |http://localhost:4010/orders/:id|
 |update|put |http://localhost:4010/orders/:id
 
+# orders-products route
+
+ |CRUD|REST|rout|
+ |------|----|--------|
+|get all|get |http://localhost:4010/orders_products|
+|show order | get |http://localhost:4010/orders_products/:order_id|
+|create |post|http://localhost:4010/orders_products|
+|update quantity|put |http://localhost:4010/orders_products/:order_id
+
 ## Database schema
 
 ![This is ER image](https://github.com/WalaaEsaa/store_frontend_backend/blob/main/screenshot/er_schame.JPG)

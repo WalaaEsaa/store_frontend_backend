@@ -51,7 +51,9 @@ var DBconnection_1 = __importDefault(require("../DBconnection"));
 var product_store = /** @class */ (function () {
     function product_store() {
     }
-    product_store.prototype.create = function (product_name, price, product_category) {
+    product_store.prototype.create = function (
+    //id:number,
+    product_name, price, category) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, product, err_1;
             return __generator(this, function (_a) {
@@ -62,7 +64,7 @@ var product_store = /** @class */ (function () {
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [product_name, price, product_category])];
+                        return [4 /*yield*/, conn.query(sql, [product_name, price, category])];
                     case 2:
                         result = _a.sent();
                         product = result.rows[0];

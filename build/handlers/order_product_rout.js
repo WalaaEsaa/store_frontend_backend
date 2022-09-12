@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,123 +50,115 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var product_rest_1 = require("../modules/product_rest");
-var authZuser_1 = __importDefault(require("../authmiddelware/authZuser"));
-var secretToken = process.env.SECRET_TOKEN;
-var pStore = new product_rest_1.product_store();
-var create = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var product_name, price, category, newProduct, err_1;
+var dotenv_1 = __importDefault(require("dotenv"));
+var order_product_1 = require("../modules/order_product");
+dotenv_1.default.config();
+var opStore = new order_product_1.OrdersProduct_store();
+var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var order_product, newOrder, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                product_name = req.body.product_name;
-                price = parseInt(req.body.price);
-                category = req.body.category;
-                return [4 /*yield*/, pStore.create(product_name, price, category)];
+                order_product = {
+                    product_id: req.body.product_id,
+                    order_id: req.body.user_id,
+                    product_quantity: req.body.product_quantity,
+                };
+                return [4 /*yield*/, opStore.create(order_product)];
             case 1:
-                newProduct = _a.sent();
-                // console.log(newProduct);
-                res.json(newProduct);
+                newOrder = _a.sent();
+                res.json(newOrder);
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
-                next(err_1);
+                res.json(err_1);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var index = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var productAll, err_2;
+var showOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var order_id, orders, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, pStore.index()];
+                order_id = parseInt(req.params.order_id);
+                return [4 /*yield*/, opStore.showOrder(order_id)];
             case 1:
-                productAll = _a.sent();
-                res.json(productAll);
+                orders = _a.sent();
+                if (!orders) {
+                    res.json('error in modules');
+                }
+                if (orders) {
+                    res.json({
+                        status: 'success',
+                        data: __assign({}, orders),
+                        message: 'user ordered',
+                    });
+                }
+                else {
+                    res.json({
+                        status: 'no order',
+                        message: 'user not ordered',
+                    });
+                }
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
-                next(err_2);
+                res.status(401);
+                res.json(err_2);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var show = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var aproduct, err_3;
+var getALL = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var orderAll;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, opStore.getALL()];
+            case 1:
+                orderAll = _a.sent();
+                res.json(orderAll);
+                return [2 /*return*/];
+        }
+    });
+}); };
+var updateQuantity = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var order_id, product_id, product_quantity, orderupdate, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, pStore.show(parseInt(req.params.id))];
+                order_id = parseInt(req.params.order_id);
+                product_id = parseInt(req.params.product_id);
+                product_quantity = parseInt(req.body.product_quantity);
+                return [4 /*yield*/, opStore.updateQuantity(product_quantity, order_id, product_id)];
             case 1:
-                aproduct = _a.sent();
-                if (!aproduct) {
-                    res.json('this id not found');
-                }
-                res.json(aproduct);
+                orderupdate = _a.sent();
+                // console.log(orderupdate);
+                if (!orderupdate)
+                    res.json('errrrrr');
+                res.json({
+                    states: 'succes',
+                    data: orderupdate,
+                    message: "auser updated",
+                });
                 return [3 /*break*/, 3];
             case 2:
                 err_3 = _a.sent();
-                next(err_3);
+                res.json(err_3);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var deleteProuduct = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var aproduct, err_4;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, pStore.delete(parseInt(req.params.id))];
-            case 1:
-                aproduct = _a.sent();
-                if (!aproduct) {
-                    res.json('this id not found');
-                }
-                res.json(aproduct);
-                return [3 /*break*/, 3];
-            case 2:
-                err_4 = _a.sent();
-                next(err_4);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-var updateProduct = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var pid, product_name, price, category, aproduct, err_5;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                pid = parseInt(req.params.id);
-                product_name = req.body.product_name;
-                price = parseInt(req.body.price);
-                category = req.body.category;
-                return [4 /*yield*/, pStore.updateProduct(pid, product_name, price, category)];
-            case 1:
-                aproduct = _a.sent();
-                res.json(aproduct);
-                return [3 /*break*/, 3];
-            case 2:
-                err_5 = _a.sent();
-                throw new Error("can not show product of : ".concat(err_5));
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-var productRoutes = function (app) {
-    app.post('/products', authZuser_1.default, create);
-    app.get('/products', index);
-    app.get('/products/:id', show);
-    app.delete('/products/:id', deleteProuduct);
-    app.put('/products/:id', updateProduct);
+var orderProductRout = function (app) {
+    app.get('/orders_products/', getALL);
+    app.get('/orders_products/:order_id', showOrder);
+    app.post('/orders_products', create);
+    app.put('/orders_products/:order_id', updateQuantity);
 };
-exports.default = productRoutes;
+exports.default = orderProductRout;

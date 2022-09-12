@@ -46,8 +46,7 @@ describe('user Model', () => {
     it('create user should return a new user', async () => {
 
       const createuser = await uStore.create('walaa', 'esaa', 'walaa1', 'walaa')
-      expect(createuser.id).toEqual(2)
-      expect(createuser.firstname).toEqual('walaa')
+       expect(createuser.firstname).toEqual('walaa')
       expect(createuser.lastname).toEqual('esaa')
       expect(createuser.username).toEqual('walaa1')
     })
@@ -58,12 +57,12 @@ describe('user Model', () => {
     })
 
     it('get one user data ', async () => {
-      const auser = await uStore.show(testUser.id as number)
-      
-      expect(auser?.id).toBe(testUser.id)
-      expect(auser?.firstname).toBe(testUser.firstname)
-      expect(auser?.lastname).toBe(testUser.lastname)
-      expect(auser?.username).toBe(testUser.firstname)
+      const auser = await uStore.show(1)
+     // console.log(auser)
+      expect(auser?.id).toBe(1)
+      expect(auser?.firstname).toBe('walaa')
+      expect(auser?.lastname).toBe('esaa')
+      expect(auser?.username).toBe('walaa')
     })
 
     it('update user', async () => {

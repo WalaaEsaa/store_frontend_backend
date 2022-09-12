@@ -33,7 +33,7 @@ describe('product Model', () => {
       category: 'school'
       } as unknown as Product
       beforeAll(async()=>{
-        const createProduct=await pStore.create(testProduct.product_name,testProduct.price,testProduct.product_category)
+        const createProduct=await pStore.create(testProduct.product_name,testProduct.price,testProduct.category)
         testProduct.id=createProduct.id
       })
       afterAll(async()=>{
@@ -62,15 +62,15 @@ describe('product Model', () => {
         expect(aproduct.id).toBe(testProduct.id)
         expect(aproduct.product_name).toBe(testProduct.product_name)
         expect(aproduct.price).toBe(testProduct.price)
-        expect(aproduct.product_category).toBe(testProduct.product_category)
+        expect(aproduct.category).toBe(testProduct.category)
       })
       
       it('update product',async()=>{
-        const updateProduct=await pStore.updateProduct(testProduct.id as number,testProduct.product_name,testProduct.price,testProduct.product_category)
+        const updateProduct=await pStore.updateProduct(testProduct.id as number,testProduct.product_name,testProduct.price,testProduct.category)
                          expect(updateProduct.id).toBe(testProduct.id)
          expect(updateProduct.product_name).toBe(testProduct.product_name)
          expect(updateProduct.price).toBe(testProduct.price)
-         expect(updateProduct.product_category).toBe(testProduct.product_category)
+         expect(updateProduct.category).toBe(testProduct.category)
       })
       
       it('delete a product data ',async()=>{

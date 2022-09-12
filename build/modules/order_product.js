@@ -39,24 +39,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Orders_store = void 0;
+exports.OrdersProduct_store = void 0;
 var DBconnection_1 = __importDefault(require("../DBconnection"));
-var Orders_store = /** @class */ (function () {
-    function Orders_store() {
+var OrdersProduct_store = /** @class */ (function () {
+    function OrdersProduct_store() {
     }
-    Orders_store.prototype.create = function (order) {
+    OrdersProduct_store.prototype.create = function (orderproduct) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, ordern;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        sql = "INSERT INTO orders(order_status,user_id) \n    VALUES ($1,$2)  RETURNING *";
+                        sql = "INSERT INTO orders_products(order_id,product_id,product_quantity) \n    VALUES ($1,$2,$3)  RETURNING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [
-                                order.order_status,
-                                order.user_id,
+                                orderproduct.order_id,
+                                orderproduct.product_id,
+                                orderproduct.product_quantity,
                             ])];
                     case 2:
                         result = _a.sent();
@@ -67,34 +68,14 @@ var Orders_store = /** @class */ (function () {
             });
         });
     };
-    Orders_store.prototype.showCurrentOrders = function (user_id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, order;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        sql = "SELECT order_status, user_id\n     FROM orders INNER JOIN users  ON orders.user_id=users.id \n      WHERE orders.user_id=($1)";
-                        return [4 /*yield*/, DBconnection_1.default.connect()];
-                    case 1:
-                        conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [user_id])];
-                    case 2:
-                        result = _a.sent();
-                        order = result.rows;
-                        conn.release();
-                        return [2 /*return*/, order];
-                }
-            });
-        });
-    };
-    Orders_store.prototype.getALL = function () {
+    OrdersProduct_store.prototype.getALL = function () {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, product, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = 'SELECT * FROM orders';
+                        sql = 'SELECT * FROM orders_products';
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -112,46 +93,46 @@ var Orders_store = /** @class */ (function () {
             });
         });
     };
-    Orders_store.prototype.deleteOrder = function (id) {
+    OrdersProduct_store.prototype.showOrder = function (order_id) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, product, err_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "DELETE FROM orders WHERE id=($1) RETURNING *";
+                        sql = 'SELECT * FROM orders_products WHERE order_id=($1)';
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [id])];
+                        return [4 /*yield*/, conn.query(sql, [order_id])];
                     case 2:
                         result = _a.sent();
-                        product = result.rows[0];
-                        conn.release();
+                        product = result.rows;
+                        conn.release;
                         return [2 /*return*/, product];
                     case 3:
                         err_2 = _a.sent();
-                        throw new Error("can not show orders of id = ".concat(id, " : ").concat(err_2));
+                        throw new Error("can not show orders information ".concat(err_2));
                     case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    Orders_store.prototype.updateOrders = function (id, statues, user_id) {
+    OrdersProduct_store.prototype.updateQuantity = function (product_quantity, order_id, product_id) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, order, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "UPDATE orders  SET \n      id=($1),order_status=($2), user_id=($3)\n        WHERE id=($1) RETURNING *";
+                        sql = "UPDATE orders_products  SET \n     product_quantity=($1)\n        WHERE order_id=($2) AND product_id=(#3) RETURNING *";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [
-                                id,
-                                statues,
-                                user_id,
+                                product_quantity,
+                                order_id,
+                                product_id,
                             ])];
                     case 2:
                         result = _a.sent();
@@ -160,12 +141,12 @@ var Orders_store = /** @class */ (function () {
                         return [2 /*return*/, order];
                     case 3:
                         err_3 = _a.sent();
-                        throw new Error("can not show order of id = ".concat(id, "  : ").concat(err_3));
+                        throw new Error("can not show order of id = ".concat(order_id, "  : ").concat(err_3));
                     case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    return Orders_store;
+    return OrdersProduct_store;
 }());
-exports.Orders_store = Orders_store;
+exports.OrdersProduct_store = OrdersProduct_store;

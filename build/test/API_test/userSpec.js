@@ -105,7 +105,6 @@ describe('user Model', function () {
                     case 0: return [4 /*yield*/, uStore.create('walaa', 'esaa', 'walaa1', 'walaa')];
                     case 1:
                         createuser = _a.sent();
-                        expect(createuser.id).toEqual(2);
                         expect(createuser.firstname).toEqual('walaa');
                         expect(createuser.lastname).toEqual('esaa');
                         expect(createuser.username).toEqual('walaa1');
@@ -129,13 +128,16 @@ describe('user Model', function () {
             var auser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, uStore.show(testUser.id)];
+                    case 0: return [4 /*yield*/, uStore.show(1)
+                        // console.log(auser)
+                    ];
                     case 1:
                         auser = _a.sent();
-                        expect(auser === null || auser === void 0 ? void 0 : auser.id).toBe(testUser.id);
-                        expect(auser === null || auser === void 0 ? void 0 : auser.firstname).toBe(testUser.firstname);
-                        expect(auser === null || auser === void 0 ? void 0 : auser.lastname).toBe(testUser.lastname);
-                        expect(auser === null || auser === void 0 ? void 0 : auser.username).toBe(testUser.firstname);
+                        // console.log(auser)
+                        expect(auser === null || auser === void 0 ? void 0 : auser.id).toBe(1);
+                        expect(auser === null || auser === void 0 ? void 0 : auser.firstname).toBe('walaa');
+                        expect(auser === null || auser === void 0 ? void 0 : auser.lastname).toBe('esaa');
+                        expect(auser === null || auser === void 0 ? void 0 : auser.username).toBe('walaa');
                         return [2 /*return*/];
                 }
             });

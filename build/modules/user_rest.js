@@ -70,7 +70,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "INSERT INTO users (firstname,lastname,username,userpassword) VALUES($1,$2,$3,$4) RETURNING *";
+                        sql = "INSERT INTO users (firstname,lastname,username,userpassword) \n      VALUES($1,$2,$3,$4) RETURNING firstname,lastname,username";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -123,7 +123,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = 'SELECT firstname,lastname,username FROM users';
+                        sql = "SELECT firstname,lastname,username FROM users";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -148,7 +148,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "SELECT id,firstname,lastname,username,userpassword FROM  users WHERE id=($1) ";
+                        sql = "SELECT id,firstname,lastname,username FROM  users WHERE id=($1)";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -173,7 +173,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = 'DELETE FROM  users WHERE id=($1) RETURNING *';
+                        sql = "DELETE FROM  users WHERE id=($1) \n      RETURNING firstname,lastname,username";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -198,7 +198,7 @@ var User_Store = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "UPDATE users SET \n            id=($1),  \n            firstname=($2),\n             lastname=($3),\n             username=($4), \n             userpassword=($5)\n             WHERE id=($1) \n             RETURNING *";
+                        sql = "UPDATE users SET \n            id=($1),  \n            firstname=($2),\n             lastname=($3),\n             username=($4), \n             userpassword=($5)\n             WHERE id=($1) \n             RETURNING firstname,lastname,username";
                         return [4 /*yield*/, DBconnection_1.default.connect()];
                     case 1:
                         conn = _a.sent();

@@ -208,6 +208,7 @@ var update = function (req, res) { return __awaiter(void 0, void 0, void 0, func
 var userRoutes = function (app) {
     app.post('/users', create);
     app.post('/users/login', authenticate);
+    app.get('/users', index);
     app.get('/users', authZuser_1.default, index);
     app.get('/users/:id', authZuser_1.default, show);
     app.delete('/users/:id', authZuser_1.default, destory);

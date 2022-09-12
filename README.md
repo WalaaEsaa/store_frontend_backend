@@ -14,6 +14,23 @@
  |for migration database|npm run migrate|
  |for jasmine test| npm run test|
 
+
+## Database Connection
+
+|Data|value|
+|------|----------|
+|database port|5432|
+| driver| pg|
+| host |127.0.0.1|
+| database|storefront_backend|
+|database for test| storefront_backend_test|
+| user|walaa|
+|password|walaa123|
+
+
+    
+
+
 ## .env
 
 PORT=4010

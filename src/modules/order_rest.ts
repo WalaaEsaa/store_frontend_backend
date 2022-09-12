@@ -2,23 +2,19 @@ import Client from '../DBconnection';
 
 export type Orders = {
   id?: number;
-  product_quantity: number;
   order_status: string;
-  product_id: number;
-  user_id: number;
+   user_id: number;
 };
 
 export class Orders_store {
   async create(order: Orders): Promise<Orders> {
-    const sql = `INSERT INTO orders(product_quantity,order_status,product_id,user_id) 
-    VALUES ($1,$2,$3,$4)  RETURNING *`;
+    const sql = `INSERT INTO orders(order_status,user_id) 
+    VALUES ($1,$2)  RETURNING *`;
  
     const conn = await Client.connect();
     const result = await conn.query(sql, [
-      order.product_quantity,
       order.order_status,
-      order.product_id,
-      order.user_id,
+       order.user_id,
     ]);
     const ordern = result.rows[0];
     conn.release();
@@ -26,7 +22,7 @@ export class Orders_store {
   }
 
   async showCurrentOrders(user_id: number): Promise<Orders[] | null> {
-    const sql = `SELECT product_quantity, order_status, product_id, user_id
+    const sql = `SELECT order_status, user_id
      FROM orders INNER JOIN users  ON orders.user_id=users.id 
       WHERE orders.user_id=($1)`;
     const conn = await Client.connect();
@@ -61,22 +57,18 @@ export class Orders_store {
   }
   async updateOrders(
     id: number,
-    quantity: number,
     statues: string,
-    product_id: number,
     user_id: number
   ): Promise<Orders> {
     try {
       const sql = `UPDATE orders  SET 
-      id=($1),product_quantity=($2), order_status=($3), product_id=($4), user_id=($5)
+      id=($1),order_status=($2), user_id=($3)
         WHERE id=($1) RETURNING *`;
 
       const conn = await Client.connect();
       const result = await conn.query(sql, [
         id,
-        quantity,
         statues,
-        product_id,
         user_id,
       ]);
       const order = result.rows[0];

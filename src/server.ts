@@ -4,6 +4,7 @@ import productRoutes from './handlers/product_route';
 import bodyParser from 'body-parser';
 import userRoutes from './handlers/user_route';
 import orderRout from './handlers/orders_route';
+import orderProductRout from './handlers/order_product_rout';
 
 dotenv.config();
 const app = express();
@@ -16,10 +17,12 @@ const port = process.env.PORT || 5000;
 app.get('', (req: Request, res: Response) => {
   res.json('server for my company ');
 });
-
+orderProductRout(app)
 userRoutes(app);
 productRoutes(app);
 orderRout(app);
 app.listen(port, () => {
   console.log(`company server run on : http://localhost:${port}`);
 });
+
+export default app

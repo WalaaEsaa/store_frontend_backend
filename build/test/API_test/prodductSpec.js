@@ -71,7 +71,7 @@ describe('product Model', function () {
             var createProduct;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, pStore.create(testProduct.product_name, testProduct.price, testProduct.product_category)];
+                    case 0: return [4 /*yield*/, pStore.create(testProduct.product_name, testProduct.price, testProduct.category)];
                     case 1:
                         createProduct = _a.sent();
                         testProduct.id = createProduct.id;
@@ -134,7 +134,7 @@ describe('product Model', function () {
                         expect(aproduct.id).toBe(testProduct.id);
                         expect(aproduct.product_name).toBe(testProduct.product_name);
                         expect(aproduct.price).toBe(testProduct.price);
-                        expect(aproduct.product_category).toBe(testProduct.product_category);
+                        expect(aproduct.category).toBe(testProduct.category);
                         return [2 /*return*/];
                 }
             });
@@ -143,13 +143,13 @@ describe('product Model', function () {
             var updateProduct;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, pStore.updateProduct(testProduct.id, testProduct.product_name, testProduct.price, testProduct.product_category)];
+                    case 0: return [4 /*yield*/, pStore.updateProduct(testProduct.id, testProduct.product_name, testProduct.price, testProduct.category)];
                     case 1:
                         updateProduct = _a.sent();
                         expect(updateProduct.id).toBe(testProduct.id);
                         expect(updateProduct.product_name).toBe(testProduct.product_name);
                         expect(updateProduct.price).toBe(testProduct.price);
-                        expect(updateProduct.product_category).toBe(testProduct.product_category);
+                        expect(updateProduct.category).toBe(testProduct.category);
                         return [2 /*return*/];
                 }
             });

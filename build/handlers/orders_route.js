@@ -54,18 +54,15 @@ var order_rest_1 = require("../modules/order_rest");
 var dotenv_1 = __importDefault(require("dotenv"));
 var authZuser_1 = __importDefault(require("../authmiddelware/authZuser"));
 dotenv_1.default.config();
-var secretToken = process.env.SECRET_TOKEN;
 var oStore = new order_rest_1.Orders_store();
-var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var create = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var order, newOrder, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 order = {
-                    product_quantity: req.body.product_quantity,
                     order_status: req.body.order_status,
-                    product_id: req.body.product_id,
                     user_id: req.body.user_id,
                 };
                 return [4 /*yield*/, oStore.create(order)];
@@ -75,13 +72,13 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
-                res.json(err_1);
+                next(err_1);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var showOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var showOrders = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var user_id, orders, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -110,27 +107,33 @@ var showOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
-                res.status(401); //unautherize
-                res.json(err_2);
+                next(err_2);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var getALL = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var orderAll;
+var getALL = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var orderAll, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, oStore.getALL()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, oStore.getALL()];
             case 1:
                 orderAll = _a.sent();
                 res.json(orderAll);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                next(err_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
-var deleteOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, auser, err_3;
+var deleteOrder = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, auser, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -143,28 +146,25 @@ var deleteOrder = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 res.json("auser deleted");
                 return [3 /*break*/, 3];
             case 2:
-                err_3 = _a.sent();
-                res.json(err_3);
+                err_4 = _a.sent();
+                next(err_4);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var updateOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, quantity, statues, product_id, user_id, orderupdate, err_4;
+var updateOrders = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, statues, user_id, orderupdate, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 id = parseInt(req.params.id);
-                quantity = parseInt(req.body.product_quantity);
                 statues = req.body.order_status;
-                product_id = parseInt(req.body.product_id);
                 user_id = parseInt(req.body.user_id);
-                return [4 /*yield*/, oStore.updateOrders(id, quantity, statues, product_id, user_id)];
+                return [4 /*yield*/, oStore.updateOrders(id, statues, user_id)];
             case 1:
                 orderupdate = _a.sent();
-                // console.log(orderupdate);
                 if (!orderupdate)
                     res.json('errrrrr');
                 res.json({
@@ -174,18 +174,19 @@ var updateOrders = function (req, res) { return __awaiter(void 0, void 0, void 0
                 });
                 return [3 /*break*/, 3];
             case 2:
-                err_4 = _a.sent();
-                res.json(err_4);
+                err_5 = _a.sent();
+                next(err_5);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
 var orderRout = function (app) {
-    app.get('/orders/', getALL);
+    app.get('/orders', getALL);
+    app.get('/orders', authZuser_1.default, getALL);
     app.get('/orders/:user_id', authZuser_1.default, showOrders);
-    app.post('/orders', create);
-    app.delete('/orders/:id', deleteOrder);
-    app.put('/orders/:id', updateOrders);
+    app.post('/orders', authZuser_1.default, create);
+    app.delete('/orders/:id', authZuser_1.default, deleteOrder);
+    app.put('/orders/:id', authZuser_1.default, updateOrders);
 };
 exports.default = orderRout;

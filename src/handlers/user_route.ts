@@ -106,6 +106,7 @@ const update = async (req: Request, res: Response) => {
 const userRoutes = (app: express.Application) => {
   app.post('/users', create);
   app.post('/users/login', authenticate);
+  app.get('/users',  index);
   app.get('/users', verifyAuthToken, index);
   app.get('/users/:id', verifyAuthToken, show);
   app.delete('/users/:id', verifyAuthToken, destory);
