@@ -77,7 +77,8 @@ const updateQuantity = async (req: Request, res: Response) => {
 };
 
 const orderProductRout = (app: Application) => {
-    app.get('/orders_products/',verifyAuthToken, getALL);
+    app.get('/orders_products/', getALL);
+   // app.get('/orders_products/',verifyAuthToken, getALL);
     app.get('/orders_products/:order_id',verifyAuthToken, showOrder);
     app.post('/orders_products',verifyAuthToken, create);
     app.put('/orders_products/:order_id',verifyAuthToken, updateQuantity);

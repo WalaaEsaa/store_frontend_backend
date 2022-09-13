@@ -83,8 +83,8 @@ const updateOrders = async (req: Request, res: Response,next:NextFunction) => {
 };
 
 const orderRout = (app: Application) => {
- // app.get('/orders', getALL);
-  app.get('/orders',verifyAuthToken, getALL);
+  app.get('/orders', getALL);
+  //app.get('/orders',verifyAuthToken, getALL);
   app.get('/orders/:user_id', verifyAuthToken, showOrders);
   app.post('/orders',verifyAuthToken, create);
   app.delete('/orders/:id',verifyAuthToken, deleteOrder);

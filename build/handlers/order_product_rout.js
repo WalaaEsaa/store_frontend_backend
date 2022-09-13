@@ -51,6 +51,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var dotenv_1 = __importDefault(require("dotenv"));
+var authZuser_1 = __importDefault(require("../authmiddelware/authZuser"));
 var order_product_1 = require("../modules/order_product");
 dotenv_1.default.config();
 var opStore = new order_product_1.OrdersProduct_store();
@@ -157,8 +158,9 @@ var updateQuantity = function (req, res) { return __awaiter(void 0, void 0, void
 }); };
 var orderProductRout = function (app) {
     app.get('/orders_products/', getALL);
-    app.get('/orders_products/:order_id', showOrder);
-    app.post('/orders_products', create);
-    app.put('/orders_products/:order_id', updateQuantity);
+    app.get('/orders_products/', authZuser_1.default, getALL);
+    app.get('/orders_products/:order_id', authZuser_1.default, showOrder);
+    app.post('/orders_products', authZuser_1.default, create);
+    app.put('/orders_products/:order_id', authZuser_1.default, updateQuantity);
 };
 exports.default = orderProductRout;
